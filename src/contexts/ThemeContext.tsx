@@ -1,3 +1,4 @@
+// src/contexts/ThemeContext.tsx
 import React, { createContext, useContext, ReactNode } from 'react';
 
 // Definição do tipo do contexto
