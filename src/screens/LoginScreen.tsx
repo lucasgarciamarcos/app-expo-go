@@ -1,15 +1,14 @@
 // src/screens/LoginScreen.tsx
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
-  Image,
   Text,
   StyleSheet,
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
   Alert,
-  ScrollView,
+  ScrollView
 } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "@/types";
@@ -27,8 +26,18 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const { login } = useAuth();
+  const { login, currentUser } = useAuth();
   const { colors } = useTheme();
+
+  useEffect(() => {
+    // Redireciona se tiver usuário
+    if (currentUser) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Chat" }],
+      });
+    }
+  }, [currentUser, navigation]);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -39,6 +48,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
     setIsLoading(true);
 
     try {
+      // O redirecionamento será feito pelo useEffect quando currentUser mudar
       await login(email, password);
 
       // Navegar para a tela de chat após login bem-sucedido

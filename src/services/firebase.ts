@@ -1,6 +1,6 @@
 // src/services/firebase.ts
 import { initializeApp } from 'firebase/app';
-import { 
+import {
   initializeAuth
 } from 'firebase/auth';
 import { getReactNativePersistence } from 'firebase/auth/react-native';
