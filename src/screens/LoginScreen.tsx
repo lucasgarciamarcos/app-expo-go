@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { 
   View, 
+  Image,
   Text, 
   StyleSheet, 
   SafeAreaView,
@@ -17,6 +18,7 @@ import { useTheme } from '../contexts/ThemeContext';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import Card from '../components/Card';
+import LottieView from 'lottie-react-native';
 
 type LoginScreenProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
@@ -64,7 +66,13 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <Card style={styles.card}>
             <Text style={[styles.title, { color: colors.text }]}>Login</Text>
-            
+
+            <LottieView
+              source={require('../../assets/cbff.json')}
+              autoPlay
+              loop
+              style={{ width: 300, height: 300, alignSelf: 'center' }}/>
+              
             <View style={styles.form}>
               <Input
                 label="Email"
