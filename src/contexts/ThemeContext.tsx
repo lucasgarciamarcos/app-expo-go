@@ -3,7 +3,6 @@ import React, { createContext, useContext, ReactNode } from 'react';
 
 // Definição do tipo do contexto
 interface ThemeContextType {
-  isDark: boolean;
   colors: {
     background: string;
     cardBackground: string;
@@ -18,7 +17,6 @@ interface ThemeContextType {
 
 // Contexto com valor padrão para evitar verificação de undefined
 const ThemeContext = createContext<ThemeContextType>({
-  isDark: true,
   colors: {
     background: '#121212',
     cardBackground: '#1e1e1e',
@@ -38,7 +36,6 @@ export const useTheme = () => useContext(ThemeContext);
 export const ThemeProvider: React.FC<{children: ReactNode}> = ({ children }) => (
   <ThemeContext.Provider 
     value={{
-      isDark: true,
       colors: {
         background: '#121212',
         cardBackground: '#1e1e1e',

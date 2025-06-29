@@ -35,7 +35,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ navigation }) => {
   const flatListRef = useRef<FlatList>(null);
   
   const { currentUser, logout } = useAuth();
-  const { colors, isDark } = useTheme();
+  const { colors } = useTheme();
 
   // Carregar dados mockados
   useEffect(() => {
@@ -120,7 +120,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ navigation }) => {
           styles.messageBubble,
           isUserMessage ? 
             [styles.userBubble, { backgroundColor: colors.primary }] : 
-            [styles.otherBubble, { backgroundColor: isDark ? '#333' : '#f0f0f0' }]
+            [styles.otherBubble, { backgroundColor: '#333' }]
         ]}
       >
         <View style={styles.messageHeader}>
@@ -181,7 +181,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ navigation }) => {
         <View style={[
           styles.messageBubble, 
           styles.otherBubble,
-          { backgroundColor: isDark ? '#333' : '#f0f0f0' }
+          { backgroundColor: '#333' }
         ]}>
           <Text style={[styles.typingLabel, { color: colors.text }]}>ChatApp</Text>
           <View style={styles.typingIndicator}>
@@ -201,7 +201,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ navigation }) => {
             style={[
               styles.input, 
               { 
-                backgroundColor: isDark ? '#333' : 'white',
+                backgroundColor: '#333',
                 color: colors.text,
                 borderColor: colors.border
               }
@@ -209,7 +209,7 @@ const ChatScreen: React.FC<ChatScreenProps> = ({ navigation }) => {
             value={newMessage}
             onChangeText={setNewMessage}
             placeholder="Digite sua mensagem..."
-            placeholderTextColor={isDark ? '#999' : '#777'}
+            placeholderTextColor={'#999'}
             multiline
           />
           <TouchableOpacity

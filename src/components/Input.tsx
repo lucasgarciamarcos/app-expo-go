@@ -23,7 +23,7 @@ const Input: React.FC<InputProps> = ({
   style,
   ...rest
 }) => {
-  const { colors, isDark } = useTheme();
+  const { colors } = useTheme();
   
   return (
     <View style={[styles.inputContainer, containerStyle]}>
@@ -42,7 +42,7 @@ const Input: React.FC<InputProps> = ({
           },
           style,
         ]}
-        placeholderTextColor={isDark ? '#666' : '#999'}
+        placeholderTextColor={'#666'}
         {...rest}
       />
       {error && (

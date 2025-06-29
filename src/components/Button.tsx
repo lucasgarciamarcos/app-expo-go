@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled,
   ...rest
 }) => {
-  const { colors, isDark } = useTheme();
+  const { colors } = useTheme();
   
   const getVariantStyles = (): ViewStyle => {
     switch (variant) {
@@ -40,7 +40,7 @@ const Button: React.FC<ButtonProps> = ({
         };
       case 'secondary':
         return {
-          backgroundColor: isDark ? '#333' : '#f0f0f0',
+          backgroundColor: '#333',
         };
       case 'outline':
         return {
