@@ -1,54 +1,54 @@
 // src/screens/LoginScreen.tsx
-import React, { useState } from 'react';
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
   Alert,
   ScrollView,
-} from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '@/types';
-import { useAuth } from '../contexts/AuthContext';
-import { useTheme } from '../contexts/ThemeContext';
-import Input from '../components/Input';
-import Button from '../components/Button';
-import Card from '../components/Card';
+} from "react-native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParamList } from "@/types";
+import { useAuth } from "../contexts/AuthContext";
+import { useTheme } from "../contexts/ThemeContext";
+import Input from "../components/Input";
+import Button from "../components/Button";
+import Card from "../components/Card";
 
-type LoginScreenProps = NativeStackScreenProps<RootStackParamList, 'Login'>;
+type LoginScreenProps = NativeStackScreenProps<RootStackParamList, "Login">;
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const { login } = useAuth();
   const { colors } = useTheme();
 
   const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert('Erro', 'Por favor, preencha email e senha.');
+      Alert.alert("Erro", "Por favor, preencha email e senha.");
       return;
     }
-    
+
     setIsLoading(true);
-    
+
     try {
       await login(email, password);
-      
+
       // Navegar para a tela de chat após login bem-sucedido
       navigation.reset({
         index: 0,
-        routes: [{ name: 'Chat' }]
+        routes: [{ name: "Chat" }],
       });
     } catch (error: any) {
-      console.error('Erro:', error);
+      console.error("Erro:", error);
       Alert.alert(
-        'Erro', 
-        error.message || 'Não foi possível fazer login. Tente novamente.'
+        "Erro",
+        error.message || "Não foi possível fazer login. Tente novamente."
       );
     } finally {
       setIsLoading(false);
@@ -56,15 +56,17 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardContainer}
       >
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <Card style={styles.card}>
             <Text style={[styles.title, { color: colors.text }]}>Login</Text>
-            
+
             <View style={styles.form}>
               <Input
                 label="Email"
@@ -74,7 +76,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
                 keyboardType="email-address"
                 autoCapitalize="none"
               />
-              
+
               <Input
                 label="Senha"
                 value={password}
@@ -109,7 +111,7 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 20,
   },
   card: {
@@ -117,8 +119,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 24,
   },
   form: {

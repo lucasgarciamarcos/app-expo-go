@@ -1,5 +1,5 @@
 // src/components/Input.tsx
-import React from 'react';
+import React from "react";
 import {
   TextInput,
   Text,
@@ -7,8 +7,8 @@ import {
   TextInputProps,
   View,
   ViewStyle,
-} from 'react-native';
-import { useTheme } from '../contexts/ThemeContext';
+} from "react-native";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface InputProps extends TextInputProps {
   label?: string;
@@ -24,7 +24,7 @@ const Input: React.FC<InputProps> = ({
   ...rest
 }) => {
   const { colors } = useTheme();
-  
+
   return (
     <View style={[styles.inputContainer, containerStyle]}>
       {label && (
@@ -37,17 +37,15 @@ const Input: React.FC<InputProps> = ({
           styles.input,
           {
             backgroundColor: colors.inputBackground,
-            borderColor: error ? '#e74c3c' : colors.border,
+            borderColor: error ? "#e74c3c" : colors.border,
             color: colors.text,
           },
           style,
         ]}
-        placeholderTextColor={'#666'}
+        placeholderTextColor={"#666"}
         {...rest}
       />
-      {error && (
-        <Text style={styles.errorText}>{error}</Text>
-      )}
+      {error && <Text style={styles.errorText}>{error}</Text>}
     </View>
   );
 };
@@ -58,7 +56,7 @@ const styles = StyleSheet.create({
   },
   inputLabel: {
     fontSize: 14,
-    fontWeight: '500',
+    fontWeight: "500",
     marginBottom: 8,
   },
   input: {
@@ -69,7 +67,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   errorText: {
-    color: '#e74c3c',
+    color: "#e74c3c",
     fontSize: 12,
     marginTop: 4,
   },

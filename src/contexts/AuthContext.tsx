@@ -1,18 +1,24 @@
 // src/contexts/AuthContext.tsx
-import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
-import { 
-  User, 
-  signInWithEmailAndPassword, 
-  signOut, 
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  useContext,
+  ReactNode,
+} from "react";
+import {
+  User,
+  signInWithEmailAndPassword,
+  signOut,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
-  UserCredential
-} from 'firebase/auth';
-import { auth } from '../services/firebase';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+  UserCredential,
+} from "firebase/auth";
+import { auth } from "../services/firebase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // Chave para armazenar o usuario em caso de fallback
-const USER_STORAGE_KEY = '@auth:user';
+const USER_STORAGE_KEY = "@auth:user";
 
 interface AuthContextType {
   currentUser: User | null;
@@ -27,7 +33,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }
@@ -58,22 +64,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     // Tentar configurar listener do Firebase
     try {
       console.log("Configurando auth state listener");
-      const unsubscribe = onAuthStateChanged(auth, (user) => {
-        console.log("Auth state changed:", user?.email || "no user");
-        setCurrentUser(user);
-        
-        // Armazenar o usuário para fallback
-        if (user) {
-          AsyncStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
-        } else {
-          AsyncStorage.removeItem(USER_STORAGE_KEY);
+      const unsubscribe = onAuthStateChanged(
+        auth,
+        (user) => {
+          console.log("Auth state changed:", user?.email || "no user");
+          setCurrentUser(user);
+
+          // Armazenar o usuário para fallback
+          if (user) {
+            AsyncStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user));
+          } else {
+            AsyncStorage.removeItem(USER_STORAGE_KEY);
+          }
+
+          setLoading(false);
+        },
+        (error) => {
+          console.error("Auth state error:", error);
+          checkStoredUser();
         }
-        
-        setLoading(false);
-      }, (error) => {
-        console.error("Auth state error:", error);
-        checkStoredUser();
-      });
+      );
 
       return unsubscribe;
     } catch (error) {
@@ -108,7 +118,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     loading,
     login,
     register,
-    logout
+    logout,
   };
 
   return (

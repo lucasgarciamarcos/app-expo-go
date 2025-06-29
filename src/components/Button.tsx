@@ -1,5 +1,5 @@
 // src/components/Button.tsx
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from "react";
 import {
   TouchableOpacity,
   Text,
@@ -8,43 +8,43 @@ import {
   TouchableOpacityProps,
   ViewStyle,
   TextStyle,
-} from 'react-native';
-import { useTheme } from '../contexts/ThemeContext';
+} from "react-native";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface ButtonProps extends TouchableOpacityProps {
   children: ReactNode;
-  variant?: 'primary' | 'secondary' | 'outline';
+  variant?: "primary" | "secondary" | "outline";
   isLoading?: boolean;
   style?: ViewStyle;
   textStyle?: TextStyle;
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
 }
 
 const Button: React.FC<ButtonProps> = ({
   children,
-  variant = 'primary',
+  variant = "primary",
   isLoading = false,
   style,
   textStyle,
-  size = 'medium',
+  size = "medium",
   disabled,
   ...rest
 }) => {
   const { colors } = useTheme();
-  
+
   const getVariantStyles = (): ViewStyle => {
     switch (variant) {
-      case 'primary':
+      case "primary":
         return {
           backgroundColor: colors.primary,
         };
-      case 'secondary':
+      case "secondary":
         return {
-          backgroundColor: '#333',
+          backgroundColor: "#333",
         };
-      case 'outline':
+      case "outline":
         return {
-          backgroundColor: 'transparent',
+          backgroundColor: "transparent",
           borderWidth: 1,
           borderColor: colors.primary,
         };
@@ -54,28 +54,28 @@ const Button: React.FC<ButtonProps> = ({
         };
     }
   };
-  
+
   const getTextColor = (): string => {
     switch (variant) {
-      case 'primary':
-        return 'white';
-      case 'secondary':
+      case "primary":
+        return "white";
+      case "secondary":
         return colors.text;
-      case 'outline':
+      case "outline":
         return colors.primary;
       default:
-        return 'white';
+        return "white";
     }
   };
-  
+
   const getSizeStyles = (): ViewStyle => {
     switch (size) {
-      case 'small':
+      case "small":
         return {
           paddingVertical: 8,
           paddingHorizontal: 16,
         };
-      case 'large':
+      case "large":
         return {
           paddingVertical: 16,
           paddingHorizontal: 32,
@@ -87,7 +87,7 @@ const Button: React.FC<ButtonProps> = ({
         };
     }
   };
-  
+
   return (
     <TouchableOpacity
       style={[
@@ -101,18 +101,12 @@ const Button: React.FC<ButtonProps> = ({
       {...rest}
     >
       {isLoading ? (
-        <ActivityIndicator 
-          size="small" 
-          color={variant === 'outline' ? colors.primary : 'white'} 
+        <ActivityIndicator
+          size="small"
+          color={variant === "outline" ? colors.primary : "white"}
         />
       ) : (
-        <Text
-          style={[
-            styles.buttonText,
-            { color: getTextColor() },
-            textStyle,
-          ]}
-        >
+        <Text style={[styles.buttonText, { color: getTextColor() }, textStyle]}>
           {children}
         </Text>
       )}
@@ -123,13 +117,13 @@ const Button: React.FC<ButtonProps> = ({
 const styles = StyleSheet.create({
   button: {
     borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
   },
   buttonText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   buttonDisabled: {
     opacity: 0.7,
